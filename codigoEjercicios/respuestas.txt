@@ -1,0 +1,41 @@
+﻿José Gilberto Rendón
+
+1. Escriba un programa que llame un ```fork()```. Antes del llamado del ```fork()```, declare una variable de acceso (por ejemplo, ```x```) y asígnele un valor (por ejemplo, ```100```). Responda las siguientes preguntas:
+  * ¿Cuál es el valor de la variable en el proceso hijo?
+  R/ En este caso el valor de la variable en el proceso hijo sera el valor inical de x=10 mas 4 que se le sumo al inicio del ciclo if para el hijo por lo tanto la variable tendra un valor de x =14.
+  * ¿Qué sucede con la variable cuando el proceso hijo y el padre cambian el valor de ```x```?
+  R/los valores de la variable x se modifican de manera independiente tanto para el padre como para el hijo.
+
+2. Escriba un programa que abra un archivo (con la llamada ```open()```) y entonces llame a ```fork()```. **Nota**: El siguiente [enlace](https://www.geeksforgeeks.org/input-output-system-calls-c-create-open-close-read-write/) puede ser de utilidad para entender la llamada ```open()```.
+  * ¿Pueden el padre y el hijo acceder al file descriptor retornado por ```open()```? 
+  R/Si ambos pueden acceder
+  * ¿Qué pasa si ellos empiezan a escribir el archivo de manera concurrente, es decir, a la misma vez?
+  R/ Ambos pueden modificar el archivo pero lo hacen tomando turnos como lo defina el sitema operativo se asume que asignando un tiempo de reloj a cada uno.
+
+3. Escriba un programa usando ```fork()```. El proceso hijo imprimirá ```"Hello"```; el proceso padre imprimirá ```"goodbye"```. Usted deberá asegurar que el proceso hijo imprima en primer lugar; ¿usted podría hacer esto sin llamar ```wait()``` en el padre? 
+R/Si es posible usando la funcion sleep() en el padre.
+
+4) 
+  ¿Por qué piensa usted que existen tantas variaciones para la misma llamada básica?
+  -La llamada al sistema execve puede ser en ocasiones algo complicada para trabajar con ella ya que no realiza una búsqueda del 
+  fichero ejecutable y no tiene en cuenta las variables de entorno ya definidas.
+  
+  Dentro de la familia de funciones exec, hay funciones que varían levemente en sus capacidades y como son invocadas, estas 
+  existen para cuando se desconocen los argumentos, o variables y que permiten usar otras interfaces más intuitivas al usuario
+  
+5)
+ ¿Cuál es el valor de retorno de la función wait()?, 
+  -el valor de retorno sera el PID del proceso hijo que finalizó o -1 si no se crearon hijos o si ya no hay hijos por los cuales 
+  esperar.
+  ¿Qué pasa si usted usa la función wait en el hijo?
+  -al usar la funcion wait en el hijo observamos que este retorna -1, esto es debido a que este proceso no tiene hijos creados
+
+6) 
+¿Cuándo podría ser waitpid() útil?
+-cuando estamos manejando una gran cantidad de hijos y queremos obtener el estado de cada uno de ellos, esta función
+nos da una la informacion especifica de ese hijo al pasarle como parametro su pid
+
+7)
+ ¿Qué pasa si el hijo llama printf() para imprimir alguna salida después de cerrar el descriptor?
+ -Se observo que al cerrar el descriptor con la funcion fclose(stdout); el mensaje siguiente no se imprime en pantalla, por 
+  que al terminar el stdout ya no se muestra el printf() en la consola
